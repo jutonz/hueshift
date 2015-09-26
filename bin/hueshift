@@ -1,0 +1,16 @@
+#!/usr/bin/ruby
+
+require_relative "../lib/hueshift"
+require "slop"
+
+include Hueshift
+
+opts = Slop.parse do |o|
+  o.on "-v", "--version", "print the version" do
+    puts Hueshift::VERSION
+    exit
+  end
+end
+
+redshift
+
