@@ -1,4 +1,5 @@
 require_relative "hueshift/version"
+require_relative "hueshift/user_settings"
 require "hue"
 
 class Numeric
@@ -13,10 +14,10 @@ class Numeric
 end
 
 module Hueshift
-  LAT = 35.779
-  LON = -78.6465
-  DAY_TEMP = 5500
-  NIGHT_TEMP = 1900
+  LAT        = ENV.fetch "LAT", 35.779
+  LON        = ENV.fetch "LON", -78.6465
+  DAY_TEMP   = ENV.fetch "DAY_TEMP", 5500
+  NIGHT_TEMP = ENV.fetch "NIGHT_TEMP", 1900
 
   def redshift
     client = Hue::Client.new

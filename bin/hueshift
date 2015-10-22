@@ -5,6 +5,7 @@ require "slop"
 
 include Hueshift
 
+load_user_settings
 
 opts = Slop.parse do |o|
   o.on "-s", "--server", "continually update color temperature" do
