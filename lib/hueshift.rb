@@ -2,7 +2,7 @@ require_relative "hueshift/version"
 require "hue"
 
 class Numeric
-  def scale(from:, to:)
+  def scale(from: 0, to: 0)
     from_min = from.first
     from_max = from.last
     to_min   = to.first
@@ -23,11 +23,18 @@ module Hueshift
 
     lights = client.lights
     lights.each do |light|
-      next unless light.on?
+      next unless light.on? # Only adjust lights that are already on
 
       transition_time = 10 * 10 # Transition times are in 1/10 second
       state = { color_temperature: redshift_temperature }
       light.set_state state, transition_time
+    end
+  end
+
+  def redshift_server(sleepytime: 30)
+    loop do
+      redshift
+      sleep sleepytime
     end
   end
 

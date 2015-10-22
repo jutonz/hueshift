@@ -5,7 +5,18 @@ require "slop"
 
 include Hueshift
 
+
 opts = Slop.parse do |o|
+  o.on "-s", "--server", "continually update color temperature" do
+    puts "Running in server mode. Press ctrl-C to stop."
+
+    trap "SIGINT" do
+      puts "Stopping..."
+      exit
+    end
+
+    redshift_server
+  end
   o.on "-v", "--version", "print the version" do
     puts Hueshift::VERSION
     exit
