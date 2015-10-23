@@ -14,10 +14,10 @@ class Numeric
 end
 
 module Hueshift
-  LAT        = ENV.fetch "LAT", 35.779
-  LON        = ENV.fetch "LON", -78.6465
-  DAY_TEMP   = ENV.fetch "DAY_TEMP", 5500
-  NIGHT_TEMP = ENV.fetch "NIGHT_TEMP", 1900
+  LAT        = (ENV.fetch "LAT", 35.779).to_f
+  LON        = (ENV.fetch "LON", -78.6465).to_f
+  DAY_TEMP   = (ENV.fetch "DAY_TEMP", 5500).to_i
+  NIGHT_TEMP = (ENV.fetch "NIGHT_TEMP", 1900).to_i
 
   def redshift
     client = Hue::Client.new
@@ -34,7 +34,13 @@ module Hueshift
 
   def redshift_server(sleepytime: 30)
     loop do
-      redshift
+      begin
+        redshift
+      rescue Exception => e
+        puts "#{Time.now}: Received #{e.class}: #{e.message}"
+        e.backtrace.each { |line| puts "\t#{line}" }
+        #puts e.backtrace
+      end
       sleep sleepytime
     end
   end
