@@ -2,10 +2,11 @@
 
 require_relative "../lib/hueshift"
 require "slop"
+require "filewatcher"
 
 include Hueshift
 
-load_user_settings
+is_user_settings_file = load_user_settings
 
 opts = Slop.parse do |o|
   o.on "-s", "--server", "continually update color temperature" do
@@ -16,7 +17,21 @@ opts = Slop.parse do |o|
       exit
     end
 
-    redshift_server
+    server = Server.new
+
+    if is_user_settings_file
+      server.start
+      filewatcher = FileWatcher.new USER_SETTINGS_PATH
+      fw_thread   = Thread.new(filewatcher) do |fw|
+        fw.watch do |file|
+          puts "Detected change to #{file}. Restarting with updated settings."
+          load_user_settings
+          server.restart
+        end
+      end.join
+    else
+      server.start.join
+    end
   end
   o.on "-v", "--version", "print the version" do
     puts Hueshift::VERSION

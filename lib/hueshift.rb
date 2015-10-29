@@ -1,5 +1,6 @@
 require_relative "hueshift/version"
 require_relative "hueshift/user_settings"
+require_relative "hueshift/server"
 require "hue"
 
 class Numeric

@@ -9,7 +9,7 @@ module Hueshift
   def load_user_settings
     if (exists = File.exist? USER_SETTINGS_PATH)
       require "dotenv"
-      Dotenv.load USER_SETTINGS_PATH
+      Dotenv.overload USER_SETTINGS_PATH
     end
     exists
   end
