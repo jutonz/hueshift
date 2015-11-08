@@ -15,7 +15,7 @@ class Numeric
 end
 
 module Hueshift
-  LAT        = (ENV.fetch "LAT", 35.779).to_f
+  LAT        = (ENV.fetch "LAT", 35.778).to_f
   LON        = (ENV.fetch "LON", -78.6465).to_f
   DAY_TEMP   = (ENV.fetch "DAY_TEMP", 5500).to_i
   NIGHT_TEMP = (ENV.fetch "NIGHT_TEMP", 1900).to_i
