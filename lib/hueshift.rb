@@ -1,7 +1,11 @@
+require "hue"
+require "sinatra"
+require "grape"
+require "sinatra/base"
 require_relative "hueshift/version"
 require_relative "hueshift/user_settings"
 require_relative "hueshift/server"
-require "hue"
+require_relative "hueshift/api"
 
 class Numeric
   def scale(from: 0, to: 0)

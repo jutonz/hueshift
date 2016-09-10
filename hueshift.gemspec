@@ -26,4 +26,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency "slop", "~> 4.2"
   spec.add_dependency "dotenv", "~> 2.0"
   spec.add_dependency "filewatcher", "~> 0.5"
+  spec.add_dependency "sinatra", "2.0.0.beta2"
+  spec.add_dependency "grape", "~> 0.17"
 end
