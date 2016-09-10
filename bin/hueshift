@@ -40,7 +40,10 @@ opts = Slop.parse do |o|
   end
 
   o.on "-a", "--api", "accept http requests to update lights" do
-    Rack::Handler::WEBrick.run Hueshift::Api
+    Rack::Handler::WEBrick.run Hueshift::Api, {
+      Port: 3000,
+      Host: "0.0.0.0"
+    }
   end
 end
 
