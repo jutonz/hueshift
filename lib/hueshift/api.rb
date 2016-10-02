@@ -15,11 +15,19 @@ module Hueshift
           brightness: light.brightness
         }
       end
+
+      def jsonapi_error!(messages, code=400)
+        error!({ error: true, messages: Array(messages) }, code)
+      end
     end
 
     before do
-      @@client ||= Hue::Client.new
-      @client ||= @@client
+      begin
+        @@client ||= Hue::Client.new
+        @client ||= @@client
+      rescue Hue::NoBridgeFound
+        jsonapi_error! "No hue bridge was found on the local network", 503
+      end
     end
 
     resource :lights do
