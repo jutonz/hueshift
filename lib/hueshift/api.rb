@@ -84,7 +84,8 @@ module Hueshift
             }
           }
         end
-        put do
+        post do
+          ap request.body
           light_params = declared params, include_missing: false
 
           light_params.delete(:on) ? @light.on! : @light.off!
