@@ -1,4 +1,5 @@
 require "json"
+require "awesome_print"
 
 module Hueshift
   class Api < Grape::API
